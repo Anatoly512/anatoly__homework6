@@ -10,9 +10,9 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         ChooseMenu chooseSceneMenu = new ChooseMenu();
-        GridPane root = chooseSceneMenu.StartButtons(primaryStage);
+        GridPane root = chooseSceneMenu.StartScene(primaryStage);
         primaryStage.setTitle(" Snowman ");
         primaryStage.setScene(new Scene(root, 800, 300));
         primaryStage.show();
