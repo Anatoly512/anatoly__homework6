@@ -55,7 +55,7 @@ public void Star (Stage primaryStage) {
 
 
     Star star = new Star();
-    buttonStar.setOnAction(e -> star.drawStar(RadiusStar));
+    buttonStar.setOnAction(e -> star.drawStar(primaryStage, RadiusStar));
 
     GridPane root = new GridPane();
     root.addRow(0, RadiusStarLabel, RadiusStar);

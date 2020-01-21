@@ -14,10 +14,13 @@ public class ChooseMenu {
 private Label amountOfCirclesLabel;
 private Label maxCircleRadiusLabel;
 private Label minCircleRadiusLabel;
+private TextField amountOfCirclesText;
+private TextField maxCircleRadiusText;
+private TextField minCircleRadiusText;
 
-private TextField amountOfCircles;
-private TextField maxCircleRadius;
-private TextField minCircleRadius;
+private Integer amountOfCircles;
+private Integer minCircleRadius;
+private Integer maxCircleRadius;
 
 private Button button1;
 private Button button2;
@@ -27,9 +30,9 @@ public ChooseMenu() {
     this.maxCircleRadiusLabel = new Label("максимальный радиус круга : ");
     this.minCircleRadiusLabel  = new Label("минимальный радиус круга : ");
 
-    this.amountOfCircles = new TextField();
-    this.maxCircleRadius = new TextField();
-    this.minCircleRadius = new TextField();
+    this.amountOfCirclesText = new TextField();
+    this.maxCircleRadiusText = new TextField();
+    this.minCircleRadiusText = new TextField();
 
     this.button1 = new Button(" Снеговик ");
     this.button2 = new Button(" Звезда ");
@@ -54,9 +57,9 @@ public ChooseMenu() {
         button1.setOnAction(e -> actionSnowmanButton(primaryStage));
         button2.setOnAction(e -> actionStarButton(primaryStage));
         GridPane root = new GridPane();
-        root.addRow(0, amountOfCirclesLabel, amountOfCircles);
-        root.addRow(1, minCircleRadiusLabel, minCircleRadius);
-        root.addRow(2, maxCircleRadiusLabel, maxCircleRadius);
+        root.addRow(0, amountOfCirclesLabel, amountOfCirclesText);
+        root.addRow(1, minCircleRadiusLabel, minCircleRadiusText);
+        root.addRow(2, maxCircleRadiusLabel, maxCircleRadiusText);
         root.addRow(3, button1);
         root.addRow(4, button2);
         return root;
@@ -65,12 +68,23 @@ public ChooseMenu() {
 
     private void actionSnowmanButton(Stage primaryStage) {
 
+        IntegerConvertor integerConvertor = new IntegerConvertor();
+
+        amountOfCircles = integerConvertor.convertTextToInteger(primaryStage, amountOfCirclesText);
+        minCircleRadius = integerConvertor.convertTextToInteger(primaryStage, minCircleRadiusText);
+        maxCircleRadius = integerConvertor.convertTextToInteger(primaryStage, maxCircleRadiusText);
+
         Snowman snowman = new Snowman(amountOfCircles, minCircleRadius, maxCircleRadius);
-        snowman.drawSnowman();
-        Scene scene = new Scene(snowman, 850, 600);
-        primaryStage.setScene(scene);
+
+      //  Scene scene = new Scene(snowman, 850, 600);
+     //   primaryStage.setScene(scene);
+
+        primaryStage.setScene(new Scene(snowman, 850, 600));
+
         primaryStage.setTitle(" Snowman ");
         primaryStage.show();
+
+        snowman.drawSnowman(primaryStage);
 
     }
 

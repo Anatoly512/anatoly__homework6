@@ -2,6 +2,7 @@ package Snowman;
 
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class Star extends Pane {
 
@@ -11,9 +12,10 @@ Star () {
 }
 
 
-    public void drawStar (TextField Radius) {
+    public void drawStar (Stage primaryStage, TextField Radius) {
 
-        this.radius = IntegerConvertor.convertTextToInteger(Radius);
+        IntegerConvertor integerConvertor = new IntegerConvertor();
+        this.radius = integerConvertor.convertTextToInteger(primaryStage, Radius);
 
         System.out.println("\nStar Draw !!!");
 
