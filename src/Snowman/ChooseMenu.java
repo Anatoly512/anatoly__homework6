@@ -76,13 +76,9 @@ public ChooseMenu() {
 
         Snowman snowman = new Snowman(amountOfCircles, minCircleRadius, maxCircleRadius);
 
-      //  Scene scene = new Scene(snowman, 850, 600);
-     //   primaryStage.setScene(scene);
-
-        primaryStage.setScene(new Scene(snowman, 850, 600));
-
-        primaryStage.setTitle(" Snowman ");
-        primaryStage.show();
+    //    primaryStage.setScene(new Scene(snowman, 850, 600));
+    //    primaryStage.setTitle(" Snowman ");
+    //    primaryStage.show();
 
         snowman.drawSnowman(primaryStage);
 

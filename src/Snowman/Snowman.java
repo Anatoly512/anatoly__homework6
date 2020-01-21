@@ -31,9 +31,14 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         System.out.println("maxCircleRadius  =>  " + maxCircleRadius);
 
         GridPane root = new GridPane();
-        primaryStage.setScene(new Scene(root, 800, 300));
-        primaryStage.setTitle(" Snowball drawing ");
-        primaryStage.show();
+     //   primaryStage.setScene(new Scene(root, 800, 300));
+     //   primaryStage.setTitle(" Snowball drawing ");
+     //   primaryStage.show();
+
+     //   Scene scene = new Scene(root, 850, 600);
+     //   primaryStage.setScene(scene);
+     //   primaryStage.setTitle(" Snowman drawing ");
+     //   primaryStage.show();
 
     }
 
