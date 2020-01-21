@@ -11,7 +11,11 @@ public class IntegerConvertor {
 
         integerValue = Integer.valueOf(StringToConvert);
 
+      //  integerValue =  Integer.decode(StringToConvert);
+
+
         return integerValue;
     }
+
 
 }
