@@ -38,7 +38,7 @@ public ChooseMenu() {
     this.button2 = new Button(" Звезда ");
 }
 
-    public GridPane StartScene(Stage primaryStage){
+    public void StartScene(Stage primaryStage){
 
         DropShadow dropShadow1 = new DropShadow();
         dropShadow1.setRadius(5.0);
@@ -58,12 +58,17 @@ public ChooseMenu() {
         button2.setOnAction(e -> actionStarButton(primaryStage));
 
         GridPane root = new GridPane();
+
         root.addRow(0, amountOfCirclesLabel, amountOfCirclesText);
         root.addRow(1, minCircleRadiusLabel, minCircleRadiusText);
         root.addRow(2, maxCircleRadiusLabel, maxCircleRadiusText);
         root.addRow(3, button1);
         root.addRow(4, button2);
-        return root;
+
+        primaryStage.setTitle(" Snowman ");
+        primaryStage.setScene(new Scene(root, 800, 300));
+        primaryStage.show();
+
     }
 
 

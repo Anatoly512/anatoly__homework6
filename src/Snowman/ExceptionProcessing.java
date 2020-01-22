@@ -4,7 +4,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -30,10 +29,7 @@ public ExceptionProcessing() {
         button.setOnAction(e ->
         {
             ChooseMenu chooseSceneMenu = new ChooseMenu();
-            GridPane root = chooseSceneMenu.StartScene(primaryStage);
-            primaryStage.setTitle(" Snowman ");
-            primaryStage.setScene(new Scene(root, 800, 300));
-            primaryStage.show();
+            chooseSceneMenu.StartScene(primaryStage);
         }
         );
 
