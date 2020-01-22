@@ -29,9 +29,9 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
         System.out.println("\nSnowman !");
 
-        System.out.println("AmountOfCircles  =>  " + amountOfCircles);
-        System.out.println("minCircleRadius  =>  " + minCircleRadius);
-        System.out.println("maxCircleRadius  =>  " + maxCircleRadius);
+        System.out.println("Количество кругов  =>  " + amountOfCircles);
+        System.out.println("Минимальный радиус круга   =>  " + minCircleRadius);
+        System.out.println("Максимальный радиус круга  =>  " + maxCircleRadius);
 
 
         FlowPane group = new FlowPane();
@@ -52,6 +52,8 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         group.getChildren().addAll(circle);
 
     //  */
+
+
 
 
 

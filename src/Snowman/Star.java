@@ -21,13 +21,13 @@ Star () {
         IntegerConvertor integerConvertor = new IntegerConvertor();
         this.radius = integerConvertor.convertTextToInteger(primaryStage, Radius);
 
-        if (this.radius == 0) {       //  Проверка на то, заполнено ли поле для ввода
+        if (this.radius == 0) {       //  Проверка на то, заполнено ли поле для ввода.
             return;                   //  Значение радиуса обязательно должно быть целым числом
         }                             //  Отрицательное число будет преобразовано в положительное
 
-        System.out.println("\nStar Draw !!!");
+        System.out.println("\nStar !");
 
-        System.out.println("Radius  => " + radius);
+        System.out.println("Радиус звезды  => " + radius);
 
 
         Pane group = new Pane();

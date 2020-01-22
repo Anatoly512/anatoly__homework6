@@ -21,7 +21,9 @@ public class IntegerConvertor {
         }
 
         if (value < 0) {value = -(value);}
-        if (value > 300) {value = 300;}
+        if (value > 300) {
+            value = 300;      //  Так урежем же осетра наших желаний к возможностям нашей сцены <scene>.  (с) Старинный грузинский тост. :)
+        }
 
         integerValue = (Integer) (value);
 
