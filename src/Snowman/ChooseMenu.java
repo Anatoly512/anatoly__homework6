@@ -56,6 +56,7 @@ public ChooseMenu() {
 
         button1.setOnAction(e -> actionSnowmanButton(primaryStage));
         button2.setOnAction(e -> actionStarButton(primaryStage));
+
         GridPane root = new GridPane();
         root.addRow(0, amountOfCirclesLabel, amountOfCirclesText);
         root.addRow(1, minCircleRadiusLabel, minCircleRadiusText);
@@ -75,11 +76,6 @@ public ChooseMenu() {
         maxCircleRadius = integerConvertor.convertTextToInteger(primaryStage, maxCircleRadiusText);
 
         Snowman snowman = new Snowman(amountOfCircles, minCircleRadius, maxCircleRadius);
-
-    //    primaryStage.setScene(new Scene(snowman, 850, 600));
-    //    primaryStage.setTitle(" Snowman ");
-    //    primaryStage.show();
-
         snowman.drawSnowman(primaryStage);
 
     }

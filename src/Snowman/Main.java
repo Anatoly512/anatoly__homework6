@@ -11,6 +11,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         ChooseMenu chooseSceneMenu = new ChooseMenu();
         GridPane root = chooseSceneMenu.StartScene(primaryStage);
+
         primaryStage.setTitle(" Snowman ");
         primaryStage.setScene(new Scene(root, 800, 300));
         primaryStage.show();

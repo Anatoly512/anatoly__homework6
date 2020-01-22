@@ -1,7 +1,11 @@
 package Snowman;
 
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class Star extends Pane {
@@ -21,6 +25,22 @@ Star () {
 
         System.out.println("Radius  => " + radius);
 
+
+      /*  Тестовый код
+
+        FlowPane group = new FlowPane();
+        primaryStage.setTitle("Circle Example");
+        Circle circle = new Circle();
+        circle.setCenterX(200);
+        circle.setCenterY(200);
+        circle.setRadius(100);
+        circle.setFill(Color.RED);
+        group.getChildren().addAll(circle);
+        Scene scene = new Scene(group,400,500,Color.BLUE);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+      */
 
 
     }

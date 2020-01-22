@@ -33,21 +33,11 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         System.out.println("minCircleRadius  =>  " + minCircleRadius);
         System.out.println("maxCircleRadius  =>  " + maxCircleRadius);
 
-     //   GridPane root = new GridPane();
-     //   FlowPane root = new FlowPane();
 
-     //   primaryStage.setScene(new Scene(root, 800, 300));
-     //   primaryStage.setTitle(" Snowball drawing ");
-     //   primaryStage.show();
+      /*  Тестовый код
 
-     //   Scene scene = new Scene(root, 850, 600);
-     //   primaryStage.setScene(scene);
-     //   primaryStage.setTitle(" Snowman drawing ");
-     //   primaryStage.show();
-
-        primaryStage.setTitle("Circle Example");
-     //   Group group = new Group();
         FlowPane group = new FlowPane();
+        primaryStage.setTitle("Circle Example");
         Circle circle = new Circle();
         circle.setCenterX(200);
         circle.setCenterY(200);
@@ -57,6 +47,8 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         Scene scene = new Scene(group,400,500,Color.BLUE);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+       */
 
     }
 
