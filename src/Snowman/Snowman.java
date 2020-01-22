@@ -48,7 +48,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         primaryStage.setScene(scene);
         primaryStage.show();
 
-       */
+     //  */
 
     }
 
