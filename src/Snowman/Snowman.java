@@ -25,7 +25,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
     this.maxCircleRadius = maxCircleRadius;
 }
 
-    public void drawSnowman (Stage primaryStage) {
+    public void drawSnowman (Stage stage) {
 
         System.out.println("\nSnowman !");
 
@@ -34,21 +34,29 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         System.out.println("maxCircleRadius  =>  " + maxCircleRadius);
 
 
-      /*  Тестовый код
-
         FlowPane group = new FlowPane();
-        primaryStage.setTitle("Circle Example");
+
+        stage.setTitle(" Snowman ");
+
+        Scene scene = new Scene(group,880,600);
+        stage.setScene(scene);
+
+
+    // /*  Тестовый код
+
         Circle circle = new Circle();
         circle.setCenterX(200);
         circle.setCenterY(200);
         circle.setRadius(100);
         circle.setFill(Color.RED);
         group.getChildren().addAll(circle);
-        Scene scene = new Scene(group,400,500,Color.BLUE);
-        primaryStage.setScene(scene);
-        primaryStage.show();
 
-     //  */
+    //  */
+
+
+
+        stage.show();
+
 
     }
 

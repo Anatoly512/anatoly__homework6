@@ -25,7 +25,7 @@ private Integer maxCircleRadius;
 private Button button1;
 private Button button2;
 
-public ChooseMenu() {
+ChooseMenu() {
     this.amountOfCirclesLabel = new Label("Количество кругов : ");
     this.maxCircleRadiusLabel = new Label("максимальный радиус круга : ");
     this.minCircleRadiusLabel  = new Label("минимальный радиус круга : ");
@@ -79,6 +79,10 @@ public ChooseMenu() {
         amountOfCircles = integerConvertor.convertTextToInteger(primaryStage, amountOfCirclesText);
         minCircleRadius = integerConvertor.convertTextToInteger(primaryStage, minCircleRadiusText);
         maxCircleRadius = integerConvertor.convertTextToInteger(primaryStage, maxCircleRadiusText);
+
+        if ((amountOfCircles == 0)||(minCircleRadius == 0)||(maxCircleRadius == 0)) {  //  Проверка на заполнение полей
+         return;                                                                      //  Значения должны обязательно быть целыми числами
+        }                                                                             //  Отрицательные числа преобразуются в положительные
 
         Snowman snowman = new Snowman(amountOfCircles, minCircleRadius, maxCircleRadius);
         snowman.drawSnowman(primaryStage);
