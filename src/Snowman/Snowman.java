@@ -1,5 +1,6 @@
 package Snowman;
 
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,9 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Shape;
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -156,18 +155,48 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
 
 
-        Polygon polygon1 = new Polygon();
-        polygon1.getPoints().addAll(40.0, 80.0,
-                50.0, 100.0,
-                100.0, 50.0);
-
-        polygon1.setStroke(Color.color(randomColor()[0], randomColor()[1], randomColor()[2]));
-        polygon1.setFill(Color.MAGENTA);
-
-        group.getChildren().add(polygon1);
 
 
 
+        Circle circle1 = new Circle();
+
+        int x = firstCircleX;
+        int y = firstCircleY;
+
+        circle1.setCenterX(x);
+        circle1.setCenterY(y);
+        circle1.setRadius(10);
+
+        circle1.setStroke(Color.color(randomColor()[0], randomColor()[1], randomColor()[2]));
+
+        group.getChildren().add(circle1);
+
+
+
+
+        Path path = new Path();
+        Integer startX = 50;
+        Integer startY = 50;
+        Integer width = 80;
+        Integer height = 40;
+        Integer radius = 10;
+        Integer triangle = 10;
+
+        MoveTo moveTo = new MoveTo(startX+radius, startY);
+        LineTo line1 = new LineTo(startX+width-radius, startY);
+        ArcTo arc1 = new ArcTo(radius, radius, 0, startX+width, startY+radius, false, true);
+        LineTo line2 = new LineTo(startX+width, startY+height-triangle);
+        LineTo line21 = new LineTo(startX+width+triangle, startY+height);
+        LineTo line3 = new LineTo(startX+radius, startY+height);
+        ArcTo arc3 = new ArcTo(radius, radius, 0, startX, startY+height-radius, false, true);
+        LineTo line4 = new LineTo(startX, startY+radius);
+        ArcTo arc4 = new ArcTo(radius, radius, 0, startX+radius, startY, false, true);
+        path.getElements().add(moveTo);
+        path.getElements().addAll(line1, arc1, line2, line21, line3, arc3, line4, arc4);
+        path.setFill(Color.BLUE);
+        Group root = new Group(path);
+
+        group.getChildren().add(path);
 
 
         stage.centerOnScreen();
