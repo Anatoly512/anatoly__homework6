@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 
 public class Snowman extends GridPane {
 
-private Group snowmanShape;
 private Button fillCirclesColourRed;
 private Button fillCirclesColourBlue;
 private Button gradientGrey;
@@ -66,48 +65,66 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         drawStar.setEffect(dropShadow2);
 
         drawStar.setOnAction(e -> {
-            CreateStar star = new CreateStar();
+            CreateStar star = new CreateStar();              //  Нарисовать звезду  (открывается соответствующая сцена)
             star.Star(stage);
         });
 
         fillCirclesColourRed.setOnAction(e -> {
-            for (Node node : group.getChildren()) {
-                if (node instanceof Shape) {               //  То есть закрасить все ноды которые являются фигурами
+            for (Node node : group.getChildren()) {            //  Закрасить все ноды которые являются фигурами
+                if (node instanceof Shape) {                   // (т.е. наследуются от класса Shape)
                     ((Shape) node).setFill(Color.RED);
                 }
             }
         });
 
         fillCirclesColourBlue.setOnAction(e -> {
-            for (Node node : group.getChildren()) {
-                if (node instanceof Shape) {               //  То есть закрасить все ноды которые являются фигурами
+            for (Node node : group.getChildren()) {           //  Закрасить все ноды которые являются фигурами
+                if (node instanceof Shape) {                  // (т.е. наследуются от класса Shape)
                     ((Shape) node).setFill(Color.BLUE);
                 }
             }
         });
 
-        gradientGrey.setOnAction(e -> {
 
+   //  Собственно создание снеговика
+
+        int x = 200;                      //  Подготовка начальных координат для головы снеговика
+        int y = 200;
+        int radius = 150;
+
+        Circle circle = new Circle();      //  Создание первого круга (головы снеговика)
+        circle.setCenterX(x);
+        circle.setCenterY(y);
+        circle.setRadius(radius);
+        circle.setStroke(Color.BLACK);
+        circle.setFill(Color.WHITE);
+
+        Shape snowman = Shape.union(circle, circle);
+        snowman.setStroke(Color.BLACK);
+        snowman.setFill(Color.WHITE);
+
+        gradientGrey.setOnAction(e -> {        //  Добавить кнопку градиента  (фигура <snowman> уже создана)
+            snowman.setFill(Color.GOLD);
         });
 
-
-    // /*  Тестовый код
-
-        Circle circle = new Circle();
-        circle.setCenterX(200);
-        circle.setCenterY(200);
-        circle.setRadius(100);
-        circle.setFill(Color.RED);
-    //  group.getChildren().addAll(circle);
-
-        //  */
+        for (int i = 0; i < amountOfCircles; i++) {
+           int circleX = x;                           //  Это чтобы сохранить первоначальные координаты первого круга (как бы головы снеговика),
+           int circleY = y;                           //  так как в его границах там еще три дополнительных круга (глаза и нос) прорисовывать
+           int circleR = radius;                      //  и нужно помнить где, и в пределах какого радиуса.
 
 
-        group.add(circle, 0, 0);
+        }
+
+
+        group.add(snowman, 0, 0);
         group.add(fillCirclesColourRed, 1,1);
         group.add(fillCirclesColourBlue, 1,2);
         group.add(gradientGrey, 1,4);
         group.add(drawStar, 2, 8);
+
+
+
+     //  Расположение элементов В одну строку
 
      //   group.addRow(0, snowmanShape);
      //   group.addRow(1, fillCirclesColourRed);
@@ -116,21 +133,11 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
      //   group.addRow(4, drawStar);
 
 
-
-
-         // Circle circle = new Circle();
-
-
-
         stage.centerOnScreen();
 
         stage.show();
 
-
     }
 
-
-
-
-
 }
+
