@@ -48,7 +48,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
         stage.setTitle(" Snowman ");
 
-        Scene scene = new Scene(group,880,600);
+        Scene scene = new Scene(group,880,620);
         stage.setScene(scene);
 
         DropShadow dropShadow = new DropShadow();
@@ -103,12 +103,12 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         circle.setFill(Color.WHITE);
 
 
-        AtomicReference<Shape> snowman = new AtomicReference<>(Shape.union(circle, circle));    //  Вот если бы я еще понимал зачем компилятор так сделал...  :) :)
+        AtomicReference<Shape> snowman = new AtomicReference<>(Shape.union(circle, circle));    //  тогда в кнопке "gradientGrey" можно изменять объект
         snowman.get().setStroke(Color.BLACK);
         snowman.get().setFill(Color.WHITE);
 
         gradientGrey.setOnAction(e -> {                            //  Добавить кнопку градиента  (фигура <snowman> уже создана)
-            snowman.set(gradientSnowmanGrey(snowman.get()));      //  В таком виде лямбда-выражение позволяет менять объект
+            snowman.set(gradientSnowmanGrey(snowman.get()));      //  В таком виде лямбда-выражение позволяет изменять объект
         });
 
 
@@ -120,8 +120,8 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
            Circle circleNext = new Circle();
 
-        //  circleRadius = (int) (((Math.random() * maxCircleRadius)) + minCircleRadius);    // ??    Попробовать упростить выражение
-            circleRadius = (int) ((Math.random() * maxCircleRadius + minCircleRadius));
+       //  circleRadius = (int) (((Math.random() * maxCircleRadius)) + minCircleRadius);    // ??    Попробовать упростить выражение
+           circleRadius = (int) ((Math.random() * maxCircleRadius + minCircleRadius));
 
            circleY = circleY + circleRadius + previousCircleRadius + ((int) (circle.getStrokeWidth()));   // ??    Попробовать упростить выражение
 
@@ -178,14 +178,15 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
             this.maxCircleRadius = 120;}
 
         //  Процесс утрамбовки снеговика в экран
-        if ((this.amountOfCircles > 5)  &&  (this.amountOfCircles <= 10) && (this.maxCircleRadius > 80)) {this.maxCircleRadius = 80;}
-        if ((this.amountOfCircles > 10)  &&  (this.amountOfCircles <= 20) && (this.maxCircleRadius > 50)) {this.maxCircleRadius = 50;}
-        if ((this.amountOfCircles > 20)  &&  (this.amountOfCircles <= 50) && (this.maxCircleRadius > 12)) {this.maxCircleRadius = 12;}
-        if ((this.amountOfCircles > 50)  &&  (this.amountOfCircles <= 80) && (this.maxCircleRadius > 8)) {this.maxCircleRadius = 8;}
-        if ((this.amountOfCircles > 80)  &&  (this.amountOfCircles <= 100) && (this.maxCircleRadius > 6)) {this.maxCircleRadius = 6;}
+        if ((this.amountOfCircles > 5)  &&  (this.amountOfCircles <= 10) && (this.maxCircleRadius > 80))  {this.maxCircleRadius = 80;}
+        if ((this.amountOfCircles > 10)  &&  (this.amountOfCircles <= 20) && (this.maxCircleRadius > 50))  {this.maxCircleRadius = 50;}
+        if ((this.amountOfCircles > 20)  &&  (this.amountOfCircles <= 50) && (this.maxCircleRadius > 12))  {this.maxCircleRadius = 12;}
+        if ((this.amountOfCircles > 50)  &&  (this.amountOfCircles <= 80) && (this.maxCircleRadius > 8))  {this.maxCircleRadius = 8;}
+        if ((this.amountOfCircles > 80)  &&  (this.amountOfCircles <= 100) && (this.maxCircleRadius > 6))  {this.maxCircleRadius = 6;}
 
 
-        if (this.minCircleRadius >= this.maxCircleRadius) {this.minCircleRadius = (this.maxCircleRadius - 1);}
+        //  Минимальный радиус должен быть хоть на чуть-чуть, но меньше максимального (а максимальный не может быть меньше 2)
+        if (this.minCircleRadius >= this.maxCircleRadius)  {this.minCircleRadius = (this.maxCircleRadius - 1);}
 
     }
 
