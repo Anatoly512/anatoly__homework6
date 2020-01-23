@@ -76,9 +76,9 @@ ChooseMenu() {
 
         IntegerConvertor integerConvertor = new IntegerConvertor();
 
-        amountOfCircles = integerConvertor.convertTextToInteger(primaryStage, amountOfCirclesText);
-        minCircleRadius = integerConvertor.convertTextToInteger(primaryStage, minCircleRadiusText);
-        maxCircleRadius = integerConvertor.convertTextToInteger(primaryStage, maxCircleRadiusText);
+        amountOfCircles = integerConvertor.convertTextToInteger(primaryStage, amountOfCirclesText);    //  Смысл передачи <primaryStage> в том, что в классе-конверторе
+        minCircleRadius = integerConvertor.convertTextToInteger(primaryStage, minCircleRadiusText);    //  есть вызов обработчика исключений (ExceptionProcessing),
+        maxCircleRadius = integerConvertor.convertTextToInteger(primaryStage, maxCircleRadiusText);    //  которому и понадобится primaryStage
 
         if ((amountOfCircles == 0)||(minCircleRadius == 0)||(maxCircleRadius == 0)) {  //  Проверка на заполнение полей
          return;                                                                      //  Значения должны обязательно быть целыми числами
