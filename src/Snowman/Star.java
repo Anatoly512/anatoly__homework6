@@ -44,7 +44,9 @@ Star () {
         circle.setCenterX(250);
         circle.setCenterY(150);
         circle.setRadius(100);
-        circle.setFill(Color.RED);
+
+        circle.setStroke(Color.color(Snowman.randomColor()[0], Snowman.randomColor()[1], Snowman.randomColor()[2]));
+        circle.setFill(Color.WHITE);
         group.getChildren().addAll(circle);
 
    // */

@@ -30,7 +30,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
     this.maxCircleRadius = maxCircleRadius;
     this.minCircleRadius = minCircleRadius;
 
-    checkingForAllowableValues();
+    checkingForReasonableValues();
 
     this.fillCirclesColourRed = new Button("Залить красным");
     this.fillCirclesColourBlue = new Button("Залить синим");
@@ -92,6 +92,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         });
 
 
+
    //  Собственно создание снеговика
 
         int firstCircleX = 200;                    //  Подготовка начальных координат для головы снеговика
@@ -99,16 +100,12 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         int firstCircleRadius = (int) ((Math.random() * maxCircleRadius + minCircleRadius));
 
         Circle circle = new Circle();              //  Создание первого круга (головы снеговика)
-        circle.setCenterX(firstCircleX);
-        circle.setCenterY(firstCircleY);
-        circle.setRadius(firstCircleRadius);
-        circle.setStroke(Color.BLACK);
-        circle.setFill(Color.WHITE);
 
 
-        AtomicReference<Shape> snowman = new AtomicReference<>(Shape.union(circle, circle));    //  тогда в кнопке "gradientGrey" можно изменять объект (снеговика)
-        snowman.get().setStroke(Color.BLACK);
+        AtomicReference<Shape> snowman = new AtomicReference<>(Shape.union(circle, circle));    //  тогда в кнопке "gradientGrey" можно изменять объект
+        snowman.get().setStroke(Color.color(randomColor()[0], randomColor()[1], randomColor()[2]));
         snowman.get().setFill(Color.WHITE);
+
 
         gradientGrey.setOnAction(e -> {                            //  Добавить кнопку градиента  (фигура <snowman> уже создана)
             snowman.set(gradientSnowmanGrey(snowman.get()));      //  В таком виде лямбда-выражение позволяет изменять объект
@@ -119,7 +116,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         int circleY = firstCircleY;                     //  так как в его границах будут еще три дополнительных круга (глаза и нос)
         int circleRadius;                               //  и нужно помнить где, и в пределах какого радиуса их рисовать.
 
-        for (int i = 1; i < amountOfCircles; i++) {    //  начало с 1,  так как 1 круг (голова снеговика) уже нарисован
+        for (int i = 0; i < amountOfCircles; i++) {
 
            Circle circleNext = new Circle();
 
@@ -133,14 +130,45 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
            circleNext.setCenterX(firstCircleX);    //  Так как ось X для всех кругов одинакова
            circleNext.setRadius(circleRadius);
 
+           circleNext.setStroke(Color.color(randomColor()[0], randomColor()[1], randomColor()[2]));
+
            snowman.set(Shape.union(snowman.get(), circleNext));
 
         }
 
-        snowman.get().setStroke(Color.BLACK);
+        snowman.get().setStroke(Color.color(randomColor()[0], randomColor()[1], randomColor()[2]));
+
         snowman.get().setFill(Color.WHITE);
 
+
+
+
+      /*
         //  Здесь нужно нарисовать еще 3 круга => глаза и нос снеговика  (все в пределах первого круга)
+        for (int i = 0; i < 3; i++) {
+
+            Circle circleNext = new Circle();
+
+            circleRadius = (int) ((Math.random() * (firstCircleRadius/8) + (firstCircleRadius/12)));
+
+            circleY = 200 + ((int) (((Math.random() * firstCircleRadius + circleRadius))) - circleRadius);
+
+            int x = 200 + ((int) (((Math.random() * firstCircleRadius + circleRadius))) - circleRadius);
+
+            circleNext.setCenterY(circleY);
+            circleNext.setCenterX(x);
+            circleNext.setRadius(circleRadius);
+
+            circleNext.setStroke(Color.AQUA);
+
+           // snowman.set(Shape.union(snowman.get(), circleNext));
+
+        }
+
+         // snowman.get().setStroke(Color.BLACK);
+           snowman.get().setFill(Color.WHITE);
+
+       */
 
 
         group.add(snowman.get(), 0, 0);
@@ -167,26 +195,38 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
     }
 
 
-    private void checkingForAllowableValues () {
+    public static double[] randomColor() {
+
+        double[] randomColor = new double [3];
+
+        randomColor[0] = Math.random();
+        randomColor[1] = Math.random();
+        randomColor[2] = Math.random();
+
+        return randomColor;
+    }
+
+
+    private void checkingForReasonableValues () {
 
         if (this.amountOfCircles > 100) {this.amountOfCircles = 100;}        //  не в человеческих возможностях строить такие снеговики  :)
 
         if (this.maxCircleRadius < 2) {this.maxCircleRadius = 2;}   //  т.к. минимальное значение должно быть одновременно и меньше, и хотя бы единицей
 
-        if ((this.amountOfCircles <= 5) && (this.minCircleRadius < 20) && (this.maxCircleRadius > 120)) {    //  зачем нам снеговик который не влезает в экран? :)
-            this.maxCircleRadius = 120;}    //  теперь должен поместиться
+        if ((this.amountOfCircles <= 5) && (this.minCircleRadius < 20) && (this.maxCircleRadius > 100)) {    //  зачем нам снеговик который не влезает в экран? :)
+            this.maxCircleRadius = 100;}    //  теперь должен поместиться
         if ((this.amountOfCircles <= 5) && (this.minCircleRadius >= 20) && (this.minCircleRadius <= 50) && (this.maxCircleRadius > 80)) {
             this.maxCircleRadius = 80;}
-        if ((this.amountOfCircles <= 5) && (this.minCircleRadius > 50) && (this.minCircleRadius < 100) && (this.maxCircleRadius > 100)) {
-            this.maxCircleRadius = 100;}
+        if ((this.amountOfCircles <= 5) && (this.minCircleRadius > 50) && (this.minCircleRadius < 70) && (this.maxCircleRadius > 70)) {
+            this.maxCircleRadius = 70;} else {this.maxCircleRadius = 72;}
 
 
         //  Процесс утрамбовки снеговика в экран
-        if ((this.amountOfCircles > 5)  &&  (this.amountOfCircles <= 10) && (this.maxCircleRadius > 50))  {this.maxCircleRadius = 50;}
-        if ((this.amountOfCircles > 10)  &&  (this.amountOfCircles <= 20) && (this.maxCircleRadius > 20))  {this.maxCircleRadius = 20;}
-        if ((this.amountOfCircles > 20)  &&  (this.amountOfCircles <= 50) && (this.maxCircleRadius > 12))  {this.maxCircleRadius = 12;}
-        if ((this.amountOfCircles > 50)  &&  (this.amountOfCircles <= 80) && (this.maxCircleRadius > 8))  {this.maxCircleRadius = 8;}
-        if ((this.amountOfCircles > 80)  &&  (this.amountOfCircles <= 100) && (this.maxCircleRadius > 6))  {this.maxCircleRadius = 6;}
+        if ((this.amountOfCircles > 5)  &&  (this.amountOfCircles <= 10) && (this.maxCircleRadius > 35))  {this.maxCircleRadius = 35;}
+        if ((this.amountOfCircles > 10)  &&  (this.amountOfCircles <= 20) && (this.maxCircleRadius > 18))  {this.maxCircleRadius = 18;}
+        if ((this.amountOfCircles > 20)  &&  (this.amountOfCircles <= 50) && (this.maxCircleRadius > 8))  {this.maxCircleRadius = 8;}
+        if ((this.amountOfCircles > 50)  &&  (this.amountOfCircles <= 80) && (this.maxCircleRadius > 5))  {this.maxCircleRadius = 5;}
+        if ((this.amountOfCircles > 80)  &&  (this.amountOfCircles <= 100) && (this.maxCircleRadius > 4))  {this.maxCircleRadius = 4;}
 
 
         //  Минимальный радиус должен быть хоть на чуть-чуть, но меньше максимального (а максимальный не может быть меньше 2)
