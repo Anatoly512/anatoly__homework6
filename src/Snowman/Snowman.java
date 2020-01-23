@@ -99,22 +99,18 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         int firstCircleY = 200;
         int firstCircleRadius = (int) ((Math.random() * maxCircleRadius + minCircleRadius));
 
-        Circle circle = new Circle();              //  Создание первого круга (головы снеговика)
+        Circle circle = new Circle();
 
-
-        AtomicReference<Shape> snowman = new AtomicReference<>(Shape.union(circle, circle));    //  тогда в кнопке "gradientGrey" можно изменять объект
-        snowman.get().setStroke(Color.color(randomColor()[0], randomColor()[1], randomColor()[2]));
-        snowman.get().setFill(Color.WHITE);
-
+        AtomicReference<Shape> snowman = new AtomicReference<>(Shape.union(circle, circle));
 
         gradientGrey.setOnAction(e -> {                            //  Добавить кнопку градиента  (фигура <snowman> уже создана)
-            snowman.set(gradientSnowmanGrey(snowman.get()));      //  В таком виде лямбда-выражение позволяет изменять объект
+            snowman.set(gradientSnowmanGrey(snowman.get()));
         });
 
 
         int previousCircleRadius = firstCircleRadius;   //  Это чтобы сохранить первоначальные координаты первого круга (как бы головы снеговика),
         int circleY = firstCircleY;                     //  так как в его границах будут еще три дополнительных круга (глаза и нос)
-        int circleRadius;                               //  и нужно помнить где, и в пределах какого радиуса их рисовать.
+        int circleRadius;
 
         for (int i = 0; i < amountOfCircles; i++) {
 
@@ -122,7 +118,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
            circleRadius = (int) ((Math.random() * maxCircleRadius + minCircleRadius));
 
-           circleY = circleY + circleRadius + previousCircleRadius + ((int) (circle.getStrokeWidth()));
+           circleY = circleY + circleRadius + previousCircleRadius + ((int) (circleNext.getStrokeWidth()));
 
            previousCircleRadius = circleRadius;
 
@@ -137,7 +133,6 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         }
 
         snowman.get().setStroke(Color.color(randomColor()[0], randomColor()[1], randomColor()[2]));
-
         snowman.get().setFill(Color.WHITE);
 
 
@@ -164,9 +159,6 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
            // snowman.set(Shape.union(snowman.get(), circleNext));
 
         }
-
-         // snowman.get().setStroke(Color.BLACK);
-           snowman.get().setFill(Color.WHITE);
 
        */
 
@@ -197,7 +189,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
     public static double[] randomColor() {
 
-        double[] randomColor = new double [3];
+        double[] randomColor = new double [3];   // rgb colours
 
         randomColor[0] = Math.random();
         randomColor[1] = Math.random();
