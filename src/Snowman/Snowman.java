@@ -6,6 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
@@ -129,8 +132,6 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
            circleNext.setCenterY(circleY);
            circleNext.setCenterX(firstCircleX);    //  Так как ось X для всех кругов одинакова
            circleNext.setRadius(circleRadius);
-         //  circleNext.setStroke(Color.GREY);
-         //  circleNext.setFill(Color.WHITE);
 
            snowman.set(Shape.union(snowman.get(), circleNext));
 
@@ -139,19 +140,14 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         snowman.get().setStroke(Color.BLACK);
         snowman.get().setFill(Color.WHITE);
 
+        //  Здесь нужно нарисовать еще 3 круга => глаза и нос снеговика  (все в пределах первого круга)
+
+
         group.add(snowman.get(), 0, 0);
         group.add(fillCirclesColourRed, 1, 0);
         group.add(fillCirclesColourBlue, 2,0);
         group.add(gradientGrey, 3,0);
         group.add(drawStar, 5, 0);
-
-
-     //  Расположение элементов В одну строку
-     //   group.addRow(0, snowmanShape);
-     //   group.addRow(1, fillCirclesColourRed);
-     //   group.addRow(2, fillCirclesColourBlue);
-     //   group.addRow(3, gradientGrey);
-     //   group.addRow(4, drawStar);
 
 
         stage.centerOnScreen();
@@ -162,7 +158,11 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
 
     private Shape gradientSnowmanGrey (Shape shape) {
-        shape.setFill(Color.GOLD);
+
+       LinearGradient lg = new LinearGradient(0, 1, 0, 0, true, CycleMethod.NO_CYCLE, new Stop(0, Color.BLACK), new Stop(1, Color.WHITE));
+
+        shape.setFill(lg);
+
         return shape;
     }
 
@@ -182,8 +182,8 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
 
         //  Процесс утрамбовки снеговика в экран
-        if ((this.amountOfCircles > 5)  &&  (this.amountOfCircles <= 10) && (this.maxCircleRadius > 80))  {this.maxCircleRadius = 80;}
-        if ((this.amountOfCircles > 10)  &&  (this.amountOfCircles <= 20) && (this.maxCircleRadius > 50))  {this.maxCircleRadius = 50;}
+        if ((this.amountOfCircles > 5)  &&  (this.amountOfCircles <= 10) && (this.maxCircleRadius > 50))  {this.maxCircleRadius = 50;}
+        if ((this.amountOfCircles > 10)  &&  (this.amountOfCircles <= 20) && (this.maxCircleRadius > 20))  {this.maxCircleRadius = 20;}
         if ((this.amountOfCircles > 20)  &&  (this.amountOfCircles <= 50) && (this.maxCircleRadius > 12))  {this.maxCircleRadius = 12;}
         if ((this.amountOfCircles > 50)  &&  (this.amountOfCircles <= 80) && (this.maxCircleRadius > 8))  {this.maxCircleRadius = 8;}
         if ((this.amountOfCircles > 80)  &&  (this.amountOfCircles <= 100) && (this.maxCircleRadius > 6))  {this.maxCircleRadius = 6;}
