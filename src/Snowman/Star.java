@@ -2,7 +2,6 @@ package Snowman;
 
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -47,7 +46,20 @@ Star () {
 
         circle.setStroke(Color.color(Snowman.randomColor()[0], Snowman.randomColor()[1], Snowman.randomColor()[2]));
         circle.setFill(Color.WHITE);
+
         group.getChildren().addAll(circle);
+
+        Circle circle2 = new Circle();
+        circle2.setCenterX(250);
+        circle2.setCenterY(150);
+        circle2.setRadius(50);
+
+        circle2.setStroke(Color.color(Snowman.randomColor()[0], Snowman.randomColor()[1], Snowman.randomColor()[2]));
+        circle2.setFill(Color.RED);
+
+        group.getChildren().addAll(circle2);
+
+
 
    // */
 

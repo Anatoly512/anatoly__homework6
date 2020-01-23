@@ -93,13 +93,16 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
 
 
-   //  Собственно создание снеговика
+
+   //  Создание снеговика
 
         int firstCircleX = 200;                    //  Подготовка начальных координат для головы снеговика
         int firstCircleY = 200;
         int firstCircleRadius = (int) ((Math.random() * maxCircleRadius + minCircleRadius));
 
-        Circle circle = new Circle();
+
+        Circle circle = new Circle();        //  Первый круг (голова снеговика)
+
 
         AtomicReference<Shape> snowman = new AtomicReference<>(Shape.union(circle, circle));
 
@@ -108,11 +111,16 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         });
 
 
-        int previousCircleRadius = firstCircleRadius;   //  Это чтобы сохранить первоначальные координаты первого круга (как бы головы снеговика),
-        int circleY = firstCircleY;                     //  так как в его границах будут еще три дополнительных круга (глаза и нос)
+
+        int previousCircleRadius = firstCircleRadius;   //  Это чтобы сохранить первоначальные координаты первого круга (головы снеговика),
+        int circleY = firstCircleY;
         int circleRadius;
 
-        for (int i = 0; i < amountOfCircles; i++) {
+
+
+
+
+        for (int i = 0; i < amountOfCircles; i++) {     //  Прорисовка всех кругов
 
            Circle circleNext = new Circle();
 
@@ -136,38 +144,35 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         snowman.get().setFill(Color.WHITE);
 
 
-
-
-      /*
-        //  Здесь нужно нарисовать еще 3 круга => глаза и нос снеговика  (все в пределах первого круга)
-        for (int i = 0; i < 3; i++) {
-
-            Circle circleNext = new Circle();
-
-            circleRadius = (int) ((Math.random() * (firstCircleRadius/8) + (firstCircleRadius/12)));
-
-            circleY = 200 + ((int) (((Math.random() * firstCircleRadius + circleRadius))) - circleRadius);
-
-            int x = 200 + ((int) (((Math.random() * firstCircleRadius + circleRadius))) - circleRadius);
-
-            circleNext.setCenterY(circleY);
-            circleNext.setCenterX(x);
-            circleNext.setRadius(circleRadius);
-
-            circleNext.setStroke(Color.AQUA);
-
-           // snowman.set(Shape.union(snowman.get(), circleNext));
-
-        }
-
-       */
-
-
         group.add(snowman.get(), 0, 0);
         group.add(fillCirclesColourRed, 1, 0);
         group.add(fillCirclesColourBlue, 2,0);
         group.add(gradientGrey, 3,0);
         group.add(drawStar, 5, 0);
+
+
+
+       for (int i = 0; i < 3; i++) {
+
+        Circle circle1 =  new Circle();
+
+        circle1.setCenterX(  (int)  (Math.random() * (firstCircleRadius) + 1));
+        circle1.setCenterY(  (int)  (Math.random() * (firstCircleRadius) + 1));
+        circle1.setRadius(firstCircleRadius / 4);
+
+      //  circle1.setCenterX(50);
+      //  circle1.setCenterY(50);
+      //  circle1.setRadius(10);
+
+        circle1.setStroke(Color.color(randomColor()[0], randomColor()[1], randomColor()[2]));
+        circle1.setFill(Color.MAGENTA);
+
+        group.getChildren().addAll(circle1);
+
+       }
+
+
+
 
 
         stage.centerOnScreen();
@@ -182,6 +187,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
        LinearGradient lg = new LinearGradient(0, 1, 0, 0, true, CycleMethod.NO_CYCLE, new Stop(0, Color.BLACK), new Stop(1, Color.WHITE));
 
         shape.setFill(lg);
+        shape.setStroke(Color.GREY);
 
         return shape;
     }
@@ -189,7 +195,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
     public static double[] randomColor() {
 
-        double[] randomColor = new double [3];   // rgb colours
+        double[] randomColor = new double [3];  // rgb colours
 
         randomColor[0] = Math.random();
         randomColor[1] = Math.random();
@@ -225,7 +231,6 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         if (this.minCircleRadius >= this.maxCircleRadius)  {this.minCircleRadius = (this.maxCircleRadius - 1);}
 
     }
-
 
 
 }
