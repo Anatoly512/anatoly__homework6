@@ -93,7 +93,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
         int firstCircleX = 200;                    //  Подготовка начальных координат для головы снеговика
         int firstCircleY = 200;
-        int firstCircleRadius = 250;
+        int firstCircleRadius = (int) ((Math.random() * maxCircleRadius + minCircleRadius));
 
         Circle circle = new Circle();              //  Создание первого круга (головы снеговика)
         circle.setCenterX(firstCircleX);
@@ -103,7 +103,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         circle.setFill(Color.WHITE);
 
 
-        AtomicReference<Shape> snowman = new AtomicReference<>(Shape.union(circle, circle));    //  тогда в кнопке "gradientGrey" можно изменять объект
+        AtomicReference<Shape> snowman = new AtomicReference<>(Shape.union(circle, circle));    //  тогда в кнопке "gradientGrey" можно изменять объект (снеговика)
         snowman.get().setStroke(Color.BLACK);
         snowman.get().setFill(Color.WHITE);
 
@@ -120,18 +120,17 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
            Circle circleNext = new Circle();
 
-       //  circleRadius = (int) (((Math.random() * maxCircleRadius)) + minCircleRadius);    // ??    Попробовать упростить выражение
            circleRadius = (int) ((Math.random() * maxCircleRadius + minCircleRadius));
 
-           circleY = circleY + circleRadius + previousCircleRadius + ((int) (circle.getStrokeWidth()));   // ??    Попробовать упростить выражение
+           circleY = circleY + circleRadius + previousCircleRadius + ((int) (circle.getStrokeWidth()));
 
            previousCircleRadius = circleRadius;
 
            circleNext.setCenterY(circleY);
            circleNext.setCenterX(firstCircleX);    //  Так как ось X для всех кругов одинакова
            circleNext.setRadius(circleRadius);
-           circleNext.setStroke(Color.GREY);
-           circleNext.setFill(Color.WHITE);
+         //  circleNext.setStroke(Color.GREY);
+         //  circleNext.setFill(Color.WHITE);
 
            snowman.set(Shape.union(snowman.get(), circleNext));
 
@@ -174,8 +173,13 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
         if (this.maxCircleRadius < 2) {this.maxCircleRadius = 2;}   //  т.к. минимальное значение должно быть одновременно и меньше, и хотя бы единицей
 
-        if ((this.amountOfCircles <= 5) && (this.maxCircleRadius > 120)) {     //  зачем нам снеговик который не влезает в экран? :)
-            this.maxCircleRadius = 120;}
+        if ((this.amountOfCircles <= 5) && (this.minCircleRadius < 20) && (this.maxCircleRadius > 120)) {    //  зачем нам снеговик который не влезает в экран? :)
+            this.maxCircleRadius = 120;}    //  теперь должен поместиться
+        if ((this.amountOfCircles <= 5) && (this.minCircleRadius >= 20) && (this.minCircleRadius <= 50) && (this.maxCircleRadius > 80)) {
+            this.maxCircleRadius = 80;}
+        if ((this.amountOfCircles <= 5) && (this.minCircleRadius > 50) && (this.minCircleRadius < 100) && (this.maxCircleRadius > 100)) {
+            this.maxCircleRadius = 100;}
+
 
         //  Процесс утрамбовки снеговика в экран
         if ((this.amountOfCircles > 5)  &&  (this.amountOfCircles <= 10) && (this.maxCircleRadius > 80))  {this.maxCircleRadius = 80;}
