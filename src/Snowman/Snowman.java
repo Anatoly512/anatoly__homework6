@@ -3,13 +3,12 @@ package Snowman;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-public class Snowman extends FlowPane {
+public class Snowman extends GridPane {
 
 private Group snowman;
 private Button fillCirclesColour;
@@ -34,7 +33,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         System.out.println("Максимальный радиус круга  =>  " + maxCircleRadius);
 
 
-        FlowPane group = new FlowPane();
+        GridPane group = new GridPane();
 
         stage.setTitle(" Snowman ");
 
@@ -42,7 +41,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         stage.setScene(scene);
 
 
-    // /*  Тестовый код
+     /*  Тестовый код
 
         Circle circle = new Circle();
         circle.setCenterX(200);
@@ -56,6 +55,8 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
 
 
+
+        stage.centerOnScreen();
 
         stage.show();
 
