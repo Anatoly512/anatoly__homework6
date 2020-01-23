@@ -10,6 +10,7 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
@@ -152,24 +153,18 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
 
 
-       for (int i = 0; i < 3; i++) {
 
-        Circle circle1 =  new Circle();
 
-        circle1.setCenterX(  (int)  (Math.random() * (firstCircleRadius) + 1));
-        circle1.setCenterY(  (int)  (Math.random() * (firstCircleRadius) + 1));
-        circle1.setRadius(firstCircleRadius / 4);
 
-      //  circle1.setCenterX(50);
-      //  circle1.setCenterY(50);
-      //  circle1.setRadius(10);
+        Polygon polygon1 = new Polygon();
+        polygon1.getPoints().addAll(40.0, 80.0,
+                50.0, 100.0,
+                100.0, 50.0);
 
-        circle1.setStroke(Color.color(randomColor()[0], randomColor()[1], randomColor()[2]));
-        circle1.setFill(Color.MAGENTA);
+        polygon1.setStroke(Color.color(randomColor()[0], randomColor()[1], randomColor()[2]));
+        polygon1.setFill(Color.MAGENTA);
 
-        group.getChildren().addAll(circle1);
-
-       }
+        group.getChildren().add(polygon1);
 
 
 
