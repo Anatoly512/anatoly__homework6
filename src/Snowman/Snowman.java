@@ -1,6 +1,5 @@
 package Snowman;
 
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,6 +9,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Snowman extends GridPane {
 
@@ -23,8 +24,10 @@ private Integer maxCircleRadius;
 
 Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadius)  {
     this.amountOfCircles = amountOfCircles;
-    this.minCircleRadius = minCircleRadius;
     this.maxCircleRadius = maxCircleRadius;
+    this.minCircleRadius = minCircleRadius;
+
+    checkingForAllowableValues();
 
     this.fillCirclesColourRed = new Button("Залить красным");
     this.fillCirclesColourBlue = new Button("Залить синим");
@@ -65,8 +68,8 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         drawStar.setEffect(dropShadow2);
 
         drawStar.setOnAction(e -> {
-            CreateStar star = new CreateStar();              //  Нарисовать звезду  (открывается соответствующая сцена)
-            star.Star(stage);
+            CreateStar star = new CreateStar();                //  Добавить кнопку "Нарисовать звезду"
+            star.Star(stage);                                  //  (открывается соответствующая сцена)
         });
 
         fillCirclesColourRed.setOnAction(e -> {
@@ -88,44 +91,63 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
    //  Собственно создание снеговика
 
-        int x = 200;                      //  Подготовка начальных координат для головы снеговика
-        int y = 200;
-        int radius = 150;
+        int firstCircleX = 200;                    //  Подготовка начальных координат для головы снеговика
+        int firstCircleY = 200;
+        int firstCircleRadius = 250;
 
-        Circle circle = new Circle();      //  Создание первого круга (головы снеговика)
-        circle.setCenterX(x);
-        circle.setCenterY(y);
-        circle.setRadius(radius);
+        Circle circle = new Circle();              //  Создание первого круга (головы снеговика)
+        circle.setCenterX(firstCircleX);
+        circle.setCenterY(firstCircleY);
+        circle.setRadius(firstCircleRadius);
         circle.setStroke(Color.BLACK);
         circle.setFill(Color.WHITE);
 
-        Shape snowman = Shape.union(circle, circle);
-        snowman.setStroke(Color.BLACK);
-        snowman.setFill(Color.WHITE);
 
-        gradientGrey.setOnAction(e -> {        //  Добавить кнопку градиента  (фигура <snowman> уже создана)
-            snowman.setFill(Color.GOLD);
+        AtomicReference<Shape> snowman = new AtomicReference<>(Shape.union(circle, circle));    //  Вот если бы я еще понимал зачем компилятор так сделал...  :) :)
+        snowman.get().setStroke(Color.BLACK);
+        snowman.get().setFill(Color.WHITE);
+
+        gradientGrey.setOnAction(e -> {                            //  Добавить кнопку градиента  (фигура <snowman> уже создана)
+            snowman.set(gradientSnowmanGrey(snowman.get()));      //  В таком виде лямбда-выражение позволяет менять объект
         });
 
-        for (int i = 0; i < amountOfCircles; i++) {
-           int circleX = x;                           //  Это чтобы сохранить первоначальные координаты первого круга (как бы головы снеговика),
-           int circleY = y;                           //  так как в его границах там еще три дополнительных круга (глаза и нос) прорисовывать
-           int circleR = radius;                      //  и нужно помнить где, и в пределах какого радиуса.
 
+        int previousCircleRadius = firstCircleRadius;   //  Это чтобы сохранить первоначальные координаты первого круга (как бы головы снеговика),
+        int circleY = firstCircleY;                     //  так как в его границах будут еще три дополнительных круга (глаза и нос)
+        int circleRadius;                               //  и нужно помнить где, и в пределах какого радиуса их рисовать.
+
+        for (int i = 1; i < amountOfCircles; i++) {    //  начало с 1,  так как 1 круг (голова снеговика) уже нарисован
+
+           Circle circleNext = new Circle();
+
+        //  circleRadius = (int) (((Math.random() * maxCircleRadius)) + minCircleRadius);    // ??    Попробовать упростить выражение
+            circleRadius = (int) ((Math.random() * maxCircleRadius + minCircleRadius));
+
+           circleY = circleY + circleRadius + previousCircleRadius + ((int) (circle.getStrokeWidth()));   // ??    Попробовать упростить выражение
+
+           previousCircleRadius = circleRadius;
+
+           circleNext.setCenterY(circleY);
+           circleNext.setCenterX(firstCircleX);    //  Так как ось X для всех кругов одинакова
+           circleNext.setRadius(circleRadius);
+           circleNext.setStroke(Color.GREY);
+           circleNext.setFill(Color.WHITE);
+
+           snowman.set(Shape.union(snowman.get(), circleNext));
 
         }
 
+        snowman.get().setStroke(Color.BLACK);
+        snowman.get().setFill(Color.WHITE);
 
-        group.add(snowman, 0, 0);
-        group.add(fillCirclesColourRed, 1,1);
-        group.add(fillCirclesColourBlue, 1,2);
-        group.add(gradientGrey, 1,4);
-        group.add(drawStar, 2, 8);
-
+        group.add(snowman.get(), 0, 0);
+        group.add(fillCirclesColourRed, 1, 0);
+        group.add(fillCirclesColourBlue, 2,0);
+        group.add(gradientGrey, 3,0);
+        group.add(drawStar, 5, 0);
 
 
      //  Расположение элементов В одну строку
-
      //   group.addRow(0, snowmanShape);
      //   group.addRow(1, fillCirclesColourRed);
      //   group.addRow(2, fillCirclesColourBlue);
@@ -138,6 +160,36 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         stage.show();
 
     }
+
+
+    private Shape gradientSnowmanGrey (Shape shape) {
+        shape.setFill(Color.GOLD);
+        return shape;
+    }
+
+
+    private void checkingForAllowableValues () {
+
+        if (this.amountOfCircles > 100) {this.amountOfCircles = 100;}        //  не в человеческих возможностях строить такие снеговики  :)
+
+        if (this.maxCircleRadius < 2) {this.maxCircleRadius = 2;}   //  т.к. минимальное значение должно быть одновременно и меньше, и хотя бы единицей
+
+        if ((this.amountOfCircles <= 5) && (this.maxCircleRadius > 120)) {     //  зачем нам снеговик который не влезает в экран? :)
+            this.maxCircleRadius = 120;}
+
+        //  Процесс утрамбовки снеговика в экран
+        if ((this.amountOfCircles > 5)  &&  (this.amountOfCircles <= 10) && (this.maxCircleRadius > 80)) {this.maxCircleRadius = 80;}
+        if ((this.amountOfCircles > 10)  &&  (this.amountOfCircles <= 20) && (this.maxCircleRadius > 50)) {this.maxCircleRadius = 50;}
+        if ((this.amountOfCircles > 20)  &&  (this.amountOfCircles <= 50) && (this.maxCircleRadius > 12)) {this.maxCircleRadius = 12;}
+        if ((this.amountOfCircles > 50)  &&  (this.amountOfCircles <= 80) && (this.maxCircleRadius > 8)) {this.maxCircleRadius = 8;}
+        if ((this.amountOfCircles > 80)  &&  (this.amountOfCircles <= 100) && (this.maxCircleRadius > 6)) {this.maxCircleRadius = 6;}
+
+
+        if (this.minCircleRadius >= this.maxCircleRadius) {this.minCircleRadius = (this.maxCircleRadius - 1);}
+
+    }
+
+
 
 }
 
