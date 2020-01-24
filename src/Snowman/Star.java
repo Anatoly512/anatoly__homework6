@@ -1,7 +1,10 @@
 package Snowman;
 
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
@@ -11,9 +14,16 @@ public class Star extends BorderPane {
 
 private Integer radius;
 
-Star () {
-}
+private Button randomColor;
+private Button randomBorderColor;
+private Button returnToMenu;
 
+Star () {
+    this.randomColor = new Button("Случайный цвет");
+    this.randomBorderColor = new Button("Только контур");;
+    this.returnToMenu = new Button("Вернуться в меню");
+    checkingForReasonableValues();
+}
 
     public void drawStar (Stage primaryStage, TextField Radius) {
 
@@ -23,6 +33,7 @@ Star () {
         if (this.radius == 0) {       //  Проверка на то, заполнены ли поля для ввода.
             return;                   //  Значения обязательно должны быть целыми числами.
         }                             //  Отрицательные числа будет преобразованы в положительные.
+
 
         System.out.println("\nStar !");
 
@@ -40,30 +51,47 @@ Star () {
      //   ((Group) scene.getRoot()).getChildren().add(root);    //  Добавить в группу
      //
 
-
-
         Path path = new Path();
 
- /*
-        MoveTo moveTo = new MoveTo(108, 71);
-
-        LineTo line1 = new LineTo(321, 161);
-        LineTo line2 = new LineTo(126,232);
-        LineTo line3 = new LineTo(232,52);
-        LineTo line4 = new LineTo(269, 250);
-        LineTo line5 = new LineTo(108, 71);
-
-
-        path.getElements().add(moveTo);
-        path.getElements().addAll(line1, line2, line3, line4, line5);
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setRadius(9.0);
+        dropShadow.setOffsetX(3.0);
+        dropShadow.setOffsetY(3.0);
+        dropShadow.setColor(Color.color(0.2, 0.2, 0.3));
+        returnToMenu.setEffect(dropShadow);
+        randomColor.setEffect(dropShadow);
 
 
-        path.setStroke(Color.BLUE);
-        path.setStrokeWidth(5);
+        randomColor.setOnAction(e -> {
+            for (Node node : group.getChildren()) {             //  Закрасить все ноды которые являются фигурами
+                if (node instanceof Shape) {
+                    double[] randomColor = new double [3];       //  Чтобы цвет заливки и цвет контура был одинаковым
+                    randomColor[0] = Snowman.randomColor()[0];
+                    randomColor[1] = Snowman.randomColor()[1];
+                    randomColor[2] = Snowman.randomColor()[2];
+                    ((Shape) node).setFill(Color.color(randomColor[0], randomColor[1], randomColor[2]));
+                    ((Shape) node).setStroke(Color.color(randomColor[0], randomColor[1], randomColor[2]));
+                }
+            }
+        });
 
-        group.getChildren().add(path);
 
-  */
+        randomBorderColor.setOnAction(e -> {
+            for (Node node : group.getChildren()) {             //  Выбрать только те ноды которые являются фигурами
+                if (node instanceof Shape) {
+                    ((Shape) node).setStroke(Color.color(Snowman.randomColor()[0], Snowman.randomColor()[1], Snowman.randomColor()[2]));
+                    ((Shape) node).setFill(Color.WHITE);
+                }
+            }
+        });
+
+
+        returnToMenu.setOnAction(e -> {
+            ChooseMenu chooseSceneMenu = new ChooseMenu();        //  Добавить кнопку "Возврат в меню"
+            chooseSceneMenu.StartScene(primaryStage);
+        });
+
+
 
         double centerX;
         double centerY;
@@ -76,19 +104,19 @@ Star () {
         centerY = 250;
         innerRadius = 50;
         outerRadius = 100;
-        numRays = 12;
-        startAngleR = 0;
+        numRays = 7;
+        startAngleR = 120;    //  Угол поворота звезды
 
         path = (Path) drawStar(centerX, centerY, innerRadius, outerRadius, numRays, startAngleR);
 
 
-        path.setStroke(Color.BLUE);
+        path.setStroke(Color.RED);
         path.setStrokeWidth(5);
 
-        group.getChildren().add(path);
-
-
-
+        group.setCenter(path);
+        group.setRight(returnToMenu);
+        group.setBottom(randomColor);
+        group.setLeft(randomBorderColor);
 
         primaryStage.show();
 
@@ -103,7 +131,7 @@ Star () {
         double deltaAngleR = Math.PI / numRays;
         Path path = new Path();
 
-        for (int i = 0; i < numRays * 2 + 1; i++)
+        for (int i = 0; i < numRays * 2 + 1; i++)    //  на 1 итерацию больше, чтобы при выходе из цикла не передавать close в path
         {
             double angleR = startAngleR + i * deltaAngleR;
             double ca = Math.cos(angleR);
@@ -135,6 +163,14 @@ Star () {
         }
 
         return path;
+    }
+
+
+
+    private void checkingForReasonableValues () {
+
+
+
     }
 
 
