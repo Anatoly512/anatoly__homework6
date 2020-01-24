@@ -103,12 +103,12 @@ Star () {
 
         centerX = 300;
         centerY = 250;
-        innerRadius = 50;
-        outerRadius = 100;
-        numRays = 7;
+        innerRadius = 70;
+        outerRadius = 150;
+        numRays = 8;
         startAngleR = 120;    //  Угол поворота звезды
 
-        path = (Path) drawStar(centerX, centerY, innerRadius, outerRadius, numRays, startAngleR);
+        path = (Path) drawPathForStar(centerX, centerY, innerRadius, outerRadius, numRays, startAngleR);
 
 
         path.setStroke(Color.RED);
@@ -130,7 +130,7 @@ Star () {
 
 
 
-    public Shape drawStar(double x, double y,
+    public Shape drawPathForStar(double x, double y,
                                   double innerRadius, double outerRadius, int numRays,
                                   double startAngleR)
     {
