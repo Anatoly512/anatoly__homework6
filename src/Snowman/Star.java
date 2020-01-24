@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
@@ -20,7 +21,7 @@ private Button returnToMenu;
 
 Star () {
     this.randomColor = new Button("Случайный цвет");
-    this.randomBorderColor = new Button("Только контур");;
+    this.randomBorderColor = new Button(" Только контур  ");;
     this.returnToMenu = new Button("Вернуться в меню");
     checkingForReasonableValues();
 }
@@ -60,7 +61,7 @@ Star () {
         dropShadow.setColor(Color.color(0.2, 0.2, 0.3));
         returnToMenu.setEffect(dropShadow);
         randomColor.setEffect(dropShadow);
-
+        randomBorderColor.setEffect(dropShadow);
 
         randomColor.setOnAction(e -> {
             for (Node node : group.getChildren()) {             //  Закрасить все ноды которые являются фигурами
@@ -113,10 +114,15 @@ Star () {
         path.setStroke(Color.RED);
         path.setStrokeWidth(5);
 
+
+        VBox vbox = new VBox();
+
+        vbox.getChildren().addAll(randomColor, randomBorderColor);
+
         group.setCenter(path);
         group.setRight(returnToMenu);
-        group.setBottom(randomColor);
-        group.setLeft(randomBorderColor);
+        group.setBottom(vbox);
+
 
         primaryStage.show();
 
