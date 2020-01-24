@@ -114,7 +114,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         int firstCircleRadius = (int) ((Math.random() * maxCircleRadius + minCircleRadius));
 
 
-        int previousCircleRadius = firstCircleRadius;   //  Это рабочие переменные, нужны чтобы сохранить первоначальные координаты первого круга (головы снеговика),
+        int previousCircleRadius = firstCircleRadius;   //  Это рабочие переменные, нужны чтобы сохранить первоначальные координаты первого круга (головы снеговика)
         int circleY = firstCircleY;
         int circleRadius;
 
@@ -122,41 +122,6 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         //  Прорисовка всех кругов
 
         for (int i = 0; i < amountOfCircles; i++) {
-
-      /*
-            //  Если это первый круг (голова снеговика)
-            if (i == 0) {
-
-                Circle circle1 = new Circle();        //  Первый круг (голова снеговика)
-
-                int x;
-                int y;
-
-                circle1.setCenterX(100);
-                circle1.setCenterY(100);
-                circle1.setRadius(100);
-
-                circle1.setStroke(Color.color(Snowman.randomColor()[0], Snowman.randomColor()[1], Snowman.randomColor()[2]));
-                circle1.setFill(Color.WHITE);
-
-                snowmanHead.getChildren().add(circle1);
-
-                Circle circle2 = new Circle();
-                circle2.setCenterX(100);
-                circle2.setCenterY(100);
-                circle2.setRadius(50);
-
-                circle2.setStroke(Color.color(Snowman.randomColor()[0], Snowman.randomColor()[1], Snowman.randomColor()[2]));
-                circle2.setFill(Color.RED);
-
-
-                snowmanHead.getChildren().add(circle2);
-
-                group.getChildren().add(snowmanHead);
-
-            }
-     */
-
 
            Circle circleNext = new Circle();
 
@@ -167,7 +132,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
            previousCircleRadius = circleRadius;
 
            circleNext.setCenterY(circleY);
-           circleNext.setCenterX(firstCircleX);    //  Так как ось X для всех кругов одинакова
+           circleNext.setCenterX(firstCircleX);    //  так как ось X для всех кругов одинакова
            circleNext.setRadius(circleRadius);
 
            circleNext.setStroke(Color.color(randomColor()[0], randomColor()[1], randomColor()[2]));
@@ -175,11 +140,41 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
            snowman.set(Shape.union(snowman.get(), circleNext));
 
 
+      /*  Фрагмент кода, отвечающий за прорисовку носа снеговика  (а с образованием цикла - и глаз)
+
+            //  Если это первый круг (голова снеговика)
+            if (i == 0) {
+
+                Circle circle1 = new Circle();        //  прорисовываем нос
+
+                int x;   //  Эти переменные понадобятся для вычисления функции Math.random()
+                int y;
+
+                circle1.setCenterX(firstCircleRadius);    //  пока что в центре головы
+                circle1.setCenterY(firstCircleY);
+                circle1.setRadius((int) (firstCircleRadius / 7));   //  радиусом в 1/7 радиуса головы
+
+                circle1.setStroke(Color.color(Snowman.randomColor()[0], Snowman.randomColor()[1], Snowman.randomColor()[2]));
+                circle1.setFill(Color.RED);
+
+                snowmanHead.getChildren().add(circle1);   //  Добавляем этот круг (нос) в группу фигур головы
+
+              // group.getChildren().add(snowmanHead);   //   Потом нужно добавить группу <snowmanHead> к фигуре snowman
+
+                 snowman.set(Shape.union(snowman.get(), circle1));    //  Пока что простое слияние фигур
+                                                                      //  но проблема в том, что текущий круг (как бы нос снеговика)
+                                                                      //  рисуется не в круге головы (как должен), а за её пределами
+                }
+
+       //  Конец фрагмента, отвечающего за прорисовку носа (позже и глаз) снеговика
+       //  Результат - нос рисуется за пределами головы снеговика
+ //  */
+
+
         }
 
         snowman.get().setStroke(Color.color(randomColor()[0], randomColor()[1], randomColor()[2]));
         snowman.get().setFill(Color.WHITE);
-
 
 
         group.add(snowman.get(), 0, 0);

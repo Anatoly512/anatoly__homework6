@@ -2,12 +2,12 @@ package Snowman;
 
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-public class Star extends Pane {
+public class Star extends BorderPane {
 
 private Integer radius;
 
@@ -29,7 +29,7 @@ Star () {
         System.out.println("Радиус звезды  => " + radius);
 
 
-        Pane group = new Pane();
+        BorderPane group = new BorderPane();
 
         primaryStage.setTitle(" Star ");
 
@@ -37,7 +37,7 @@ Star () {
         primaryStage.setScene(scene);
 
 
-   // /*  Тестовый код
+    /*  Тестовый код
 
         Circle circle = new Circle();
         circle.setCenterX(250);
@@ -59,9 +59,9 @@ Star () {
 
         group.getChildren().addAll(circle2);
 
-
-
    // */
+
+
 
 
 
