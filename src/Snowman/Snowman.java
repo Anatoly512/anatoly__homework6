@@ -1,5 +1,6 @@
 package Snowman;
 
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,7 +10,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -17,7 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Snowman extends GridPane {
 
 private Button fillCirclesColourRed;
-private Button fillCirclesColourBlue;
+private Button fillCirclesColourRdm;
 private Button gradientGrey;
 private Button drawStar;
 private Integer amountOfCircles;
@@ -32,7 +34,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
     checkingForReasonableValues();
 
     this.fillCirclesColourRed = new Button("Залить красным");
-    this.fillCirclesColourBlue = new Button("Залить синим");
+    this.fillCirclesColourRdm = new Button("Залить случайным цветом");
     this.gradientGrey = new Button("Градиент");
     this.drawStar = new Button("Нарисовать звезду");
 }
@@ -48,10 +50,11 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
         GridPane group = new GridPane();
 
-        stage.setTitle(" Snowman ");
-
         Scene scene = new Scene(group,880,620);
+
+        stage.setTitle(" Snowman ");
         stage.setScene(scene);
+
 
         DropShadow dropShadow = new DropShadow();
         dropShadow.setRadius(9.0);
@@ -59,7 +62,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         dropShadow.setOffsetY(3.0);
         dropShadow.setColor(Color.color(0.2, 0.2, 0.3));
         fillCirclesColourRed.setEffect(dropShadow);
-        fillCirclesColourBlue.setEffect(dropShadow);
+        fillCirclesColourRdm.setEffect(dropShadow);
         gradientGrey.setEffect(dropShadow);
 
         DropShadow dropShadow2 = new DropShadow();
@@ -74,6 +77,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
             star.Star(stage);                                  //  (открывается соответствующая сцена)
         });
 
+
         fillCirclesColourRed.setOnAction(e -> {
             for (Node node : group.getChildren()) {            //  Закрасить все ноды которые являются фигурами
                 if (node instanceof Shape) {                   // (т.е. наследуются от класса Shape)
@@ -82,26 +86,17 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
             }
         });
 
-        fillCirclesColourBlue.setOnAction(e -> {
+
+        fillCirclesColourRdm.setOnAction(e -> {
             for (Node node : group.getChildren()) {           //  Закрасить все ноды которые являются фигурами
-                if (node instanceof Shape) {                  // (т.е. наследуются от класса Shape)
-                    ((Shape) node).setFill(Color.BLUE);
+                if (node instanceof Shape) {
+                    ((Shape) node).setFill(Color.color(randomColor()[0], randomColor()[1], randomColor()[2]));
                 }
             }
         });
 
 
-
-
-   //  Создание снеговика
-
-        int firstCircleX = 200;                    //  Подготовка начальных координат для головы снеговика
-        int firstCircleY = 200;
-        int firstCircleRadius = (int) ((Math.random() * maxCircleRadius + minCircleRadius));
-
-
         Circle circle = new Circle();
-
 
         AtomicReference<Shape> snowman = new AtomicReference<>(Shape.union(circle, circle));
 
@@ -110,16 +105,58 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         });
 
 
+        //  Создание снеговика
 
-        int previousCircleRadius = firstCircleRadius;   //  Это чтобы сохранить первоначальные координаты первого круга (головы снеговика),
+        Group snowmanHead = new Group();           //  Создается группа фигур головы (должна содержать 3 круга -> глаза и нос)
+
+        int firstCircleX = 200;                    //  Подготовка начальных координат для головы снеговика
+        int firstCircleY = 200;
+        int firstCircleRadius = (int) ((Math.random() * maxCircleRadius + minCircleRadius));
+
+
+        int previousCircleRadius = firstCircleRadius;   //  Это рабочие переменные, нужны чтобы сохранить первоначальные координаты первого круга (головы снеговика),
         int circleY = firstCircleY;
         int circleRadius;
 
 
+        //  Прорисовка всех кругов
+
+        for (int i = 0; i < amountOfCircles; i++) {
+
+      /*
+            //  Если это первый круг (голова снеговика)
+            if (i == 0) {
+
+                Circle circle1 = new Circle();        //  Первый круг (голова снеговика)
+
+                int x;
+                int y;
+
+                circle1.setCenterX(100);
+                circle1.setCenterY(100);
+                circle1.setRadius(100);
+
+                circle1.setStroke(Color.color(Snowman.randomColor()[0], Snowman.randomColor()[1], Snowman.randomColor()[2]));
+                circle1.setFill(Color.WHITE);
+
+                snowmanHead.getChildren().add(circle1);
+
+                Circle circle2 = new Circle();
+                circle2.setCenterX(100);
+                circle2.setCenterY(100);
+                circle2.setRadius(50);
+
+                circle2.setStroke(Color.color(Snowman.randomColor()[0], Snowman.randomColor()[1], Snowman.randomColor()[2]));
+                circle2.setFill(Color.RED);
 
 
+                snowmanHead.getChildren().add(circle2);
 
-        for (int i = 0; i < amountOfCircles; i++) {     //  Прорисовка всех кругов
+                group.getChildren().add(snowmanHead);
+
+            }
+     */
+
 
            Circle circleNext = new Circle();
 
@@ -135,24 +172,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
            circleNext.setStroke(Color.color(randomColor()[0], randomColor()[1], randomColor()[2]));
 
-
-
-                Circle circle1 = new Circle();
-                circle1.setCenterX(firstCircleX);
-                circle1.setCenterY(circleY);
-                circle1.setRadius((int) (circleRadius / 4));
-                circle1.setStroke(Color.RED);
-                circle1.setFill(Color.MAGENTA);
-
-                Shape shipe1 = Shape.union(circle1, circle1);
-
-             //   snowman.set(Shape.union(snowman.get(), shipe1));
-
-                group.getChildren().add(shipe1);
-
-
-
-            snowman.set(Shape.union(snowman.get(), circleNext));
+           snowman.set(Shape.union(snowman.get(), circleNext));
 
 
         }
@@ -161,63 +181,12 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         snowman.get().setFill(Color.WHITE);
 
 
+
         group.add(snowman.get(), 0, 0);
         group.add(fillCirclesColourRed, 1, 0);
-        group.add(fillCirclesColourBlue, 2,0);
+        group.add(fillCirclesColourRdm, 2,0);
         group.add(gradientGrey, 3,0);
         group.add(drawStar, 5, 0);
-
-
-
-
-
-
-/*
-
-
-        Circle circle1 = new Circle();
-
-        int x = firstCircleX;
-        int y = firstCircleY;
-
-        circle1.setCenterX(x);
-        circle1.setCenterY(y);
-        circle1.setRadius(10);
-
-        circle1.setStroke(Color.color(randomColor()[0], randomColor()[1], randomColor()[2]));
-
-        group.getChildren().add(circle1);
-
-
-
-
-        Path path = new Path();
-        Integer startX = 50;
-        Integer startY = 50;
-        Integer width = 80;
-        Integer height = 40;
-        Integer radius = 10;
-        Integer triangle = 10;
-
-        MoveTo moveTo = new MoveTo(startX+radius, startY);
-        LineTo line1 = new LineTo(startX+width-radius, startY);
-        ArcTo arc1 = new ArcTo(radius, radius, 0, startX+width, startY+radius, false, true);
-        LineTo line2 = new LineTo(startX+width, startY+height-triangle);
-        LineTo line21 = new LineTo(startX+width+triangle, startY+height);
-        LineTo line3 = new LineTo(startX+radius, startY+height);
-        ArcTo arc3 = new ArcTo(radius, radius, 0, startX, startY+height-radius, false, true);
-        LineTo line4 = new LineTo(startX, startY+radius);
-        ArcTo arc4 = new ArcTo(radius, radius, 0, startX+radius, startY, false, true);
-        path.getElements().add(moveTo);
-        path.getElements().addAll(line1, arc1, line2, line21, line3, arc3, line4, arc4);
-        path.setFill(Color.BLUE);
-        Group root = new Group(path);
-
-        group.getChildren().add(path);
-
- */
-
-
 
 
         stage.centerOnScreen();
