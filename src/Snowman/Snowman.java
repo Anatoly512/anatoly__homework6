@@ -1,6 +1,5 @@
 package Snowman;
 
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -101,7 +100,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         int firstCircleRadius = (int) ((Math.random() * maxCircleRadius + minCircleRadius));
 
 
-        Circle circle = new Circle();        //  Первый круг (голова снеговика)
+        Circle circle = new Circle();
 
 
         AtomicReference<Shape> snowman = new AtomicReference<>(Shape.union(circle, circle));
@@ -136,7 +135,25 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
            circleNext.setStroke(Color.color(randomColor()[0], randomColor()[1], randomColor()[2]));
 
-           snowman.set(Shape.union(snowman.get(), circleNext));
+
+
+                Circle circle1 = new Circle();
+                circle1.setCenterX(firstCircleX);
+                circle1.setCenterY(circleY);
+                circle1.setRadius((int) (circleRadius / 4));
+                circle1.setStroke(Color.RED);
+                circle1.setFill(Color.MAGENTA);
+
+                Shape shipe1 = Shape.union(circle1, circle1);
+
+             //   snowman.set(Shape.union(snowman.get(), shipe1));
+
+                group.getChildren().add(shipe1);
+
+
+
+            snowman.set(Shape.union(snowman.get(), circleNext));
+
 
         }
 
@@ -155,7 +172,7 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
 
 
 
-
+/*
 
 
         Circle circle1 = new Circle();
@@ -197,6 +214,10 @@ Snowman (Integer amountOfCircles, Integer minCircleRadius, Integer maxCircleRadi
         Group root = new Group(path);
 
         group.getChildren().add(path);
+
+ */
+
+
 
 
         stage.centerOnScreen();
