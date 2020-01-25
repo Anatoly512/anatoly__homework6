@@ -116,7 +116,7 @@ Star () {
         this.startAngleR = 120;    //  Угол поворота звезды
 
  */
-        double centerX = 300;
+        double centerX = 300;    //  Параметры произвольные, так как звезде в <BorderPane> будет установлен статус <Center>
         double centerY = 250;
 
         path = (Path) drawPathForStar(centerX, centerY, this.innerRadius, this.outerRadius, this.numRays, this.startAngleR);
