@@ -15,7 +15,7 @@ public class IntegerConvertor {
             value = Integer.parseInt(StringToConvert);
         }
         catch (Exception ex) {
-            System.out.println("Вы ввели что-то не то !");
+            System.out.println("Вы ввели что-то не то (или оставили поля незаполненными) !");
             ExceptionProcessing exeption = new ExceptionProcessing();
             exeption.exceptionWindowShow(primaryStage);
         }

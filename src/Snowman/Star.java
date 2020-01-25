@@ -47,11 +47,14 @@ Star () {
             return;
         }
 
-        //  Значение угла поворота звезды может быть равным нулю
+        //  Значение угла поворота звезды может быть равным нулю  (то есть это поле может быть пустым)
 
         checkingForReasonableValues();     //  Проверка введенных значений на диапазон
 
-        System.out.println("Внутренний радиус звезды  => " + innerRadius);
+        System.out.println("Внутренний радиус звезды  => " + this.innerRadius);
+        System.out.println("Внешний радиус звезды  => " + this.outerRadius);
+        System.out.println("Количество лучей  => " + this.numRays);
+        System.out.println("Угол поворота звезды  => " + this.startAngleR);
 
 
         BorderPane group = new BorderPane();
@@ -60,10 +63,6 @@ Star () {
 
         Scene scene = new Scene(group,800,600);
         primaryStage.setScene(scene);
-
-     //
-     //   ((Group) scene.getRoot()).getChildren().add(root);    //  Добавить в группу  (просто пример)
-     //
 
         Path path = new Path();
 
@@ -106,21 +105,10 @@ Star () {
         });
 
 
-/*    Тестовый фрагмент
-
-        this.centerX = 300;
-        this.centerY = 250;
-        this.innerRadius = 70;
-        this.outerRadius = 150;
-        this.numRays = 8;
-        this.startAngleR = 120;    //  Угол поворота звезды
-
- */
         double centerX = 300;    //  Параметры произвольные, так как звезде в <BorderPane> будет установлен статус <Center>
         double centerY = 250;
 
         path = (Path) drawPathForStar(centerX, centerY, this.innerRadius, this.outerRadius, this.numRays, this.startAngleR);
-
 
         path.setStroke(Color.RED);
         path.setStrokeWidth(5);
@@ -128,7 +116,7 @@ Star () {
 
         VBox vbox = new VBox();
 
-        vbox.getChildren().addAll(randomColor, randomBorderColor);
+        vbox.getChildren().addAll(randomColor, randomBorderColor);    //  Таким образом кнопки будут располагаться рядом
 
         group.setCenter(path);
         group.setRight(returnToMenu);
@@ -186,7 +174,9 @@ Star () {
 
     private void checkingForReasonableValues () {
 
-
+       //  Проверка всех значений встроена в класс IntegerConvertor, все значения свыше 250 урезаются до 250,
+       //  все отрицательные числа преобразуются в положительные, на вход принимаются только целые числа.
+       //  Дополнительных проверок при таких данных не нужно.
 
     }
 
