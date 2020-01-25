@@ -13,32 +13,50 @@ import javafx.stage.Stage;
 
 public class Star extends BorderPane {
 
-private Integer radius;
-
 private Button randomColor;
 private Button randomBorderColor;
 private Button returnToMenu;
+
+double innerRadius;
+double outerRadius;
+int numRays;
+double startAngleR;
+double centerX;
+double centerY;
 
 Star () {
     this.randomColor = new Button("Случайный цвет");
     this.randomBorderColor = new Button(" Только контур  ");;
     this.returnToMenu = new Button("Вернуться в меню");
-    checkingForReasonableValues();
 }
 
-    public void drawStar (Stage primaryStage, TextField Radius) {
-
-        IntegerConvertor integerConvertor = new IntegerConvertor();
-        this.radius = integerConvertor.convertTextToInteger(primaryStage, Radius);
-
-        if (this.radius == 0) {       //  Проверка на то, заполнены ли поля для ввода.
-            return;                   //  Значения обязательно должны быть целыми числами.
-        }                             //  Отрицательные числа будет преобразованы в положительные.
-
+    public void drawStar (Stage primaryStage, TextField innerRadius, TextField outerRadius, TextField numRays, TextField startAngleR,
+                          TextField centerX, TextField centerY) {
 
         System.out.println("\nStar !");
 
-        System.out.println("Радиус звезды  => " + radius);
+        IntegerConvertor integerConvertor = new IntegerConvertor();
+
+        this.innerRadius = (double) integerConvertor.convertTextToInteger(primaryStage, innerRadius);
+        this.outerRadius = (double) integerConvertor.convertTextToInteger(primaryStage, outerRadius);
+        this.numRays = integerConvertor.convertTextToInteger(primaryStage, numRays);
+        this.startAngleR = (double) integerConvertor.convertTextToInteger(primaryStage, startAngleR);
+        this.centerX = (double) integerConvertor.convertTextToInteger(primaryStage, centerX);
+        this.centerY = (double) integerConvertor.convertTextToInteger(primaryStage, centerY);
+
+
+        //  Проверка на то, заполнены ли поля для ввода.
+        //  Значения обязательно должны быть целыми числами
+        //  Отрицательные числа будет преобразованы в положительные
+        if ((this.innerRadius == 0) || (this.outerRadius == 0) || (this.numRays == 0))  {
+            return;
+        }
+
+        //  Значениям координат X и Y, а также углу поворота звезды можно быть равными нулю
+
+        checkingForReasonableValues();     //  Проверка введенных значений на диапазон
+
+        System.out.println("Радиус звезды  => " + innerRadius);
 
 
         BorderPane group = new BorderPane();
@@ -49,7 +67,7 @@ Star () {
         primaryStage.setScene(scene);
 
      //
-     //   ((Group) scene.getRoot()).getChildren().add(root);    //  Добавить в группу
+     //   ((Group) scene.getRoot()).getChildren().add(root);    //  Добавить в группу  (просто пример)
      //
 
         Path path = new Path();
@@ -93,22 +111,18 @@ Star () {
         });
 
 
+/*    Тестовый фрагмент
 
-        double centerX;
-        double centerY;
-        double innerRadius;
-        double outerRadius;
-        int numRays;
-        double startAngleR;    //  Угол поворота звезды
+        this.centerX = 300;
+        this.centerY = 250;
+        this.innerRadius = 70;
+        this.outerRadius = 150;
+        this.numRays = 8;
+        this.startAngleR = 120;    //  Угол поворота звезды
 
-        centerX = 300;
-        centerY = 250;
-        innerRadius = 70;
-        outerRadius = 150;
-        numRays = 8;
-        startAngleR = 120;    //  Угол поворота звезды
+ */
 
-        path = (Path) drawPathForStar(centerX, centerY, innerRadius, outerRadius, numRays, startAngleR);
+        path = (Path) drawPathForStar(this.centerX, this.centerY, this.innerRadius, this.outerRadius, this.numRays, this.startAngleR);
 
 
         path.setStroke(Color.RED);
