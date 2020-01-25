@@ -20,15 +20,11 @@ private Label innerStarRadiusLabel;
 private Label outerStarRadiusLabel;
 private Label numberOfRaysLabel;
 private Label startAngleRLabel;
-private Label xCenterOfStarLabel;
-private Label yCenterOfStarLabel;
 
 private TextField innerStarRadius;
 private TextField outerStarRadius;
 private TextField numberOfRays;
 private TextField startAngleR;
-private TextField xCenterOfStar;
-private TextField yCenterOfStar;
 
 
 CreateStar() {
@@ -36,15 +32,11 @@ CreateStar() {
     this.innerStarRadiusLabel = new Label("Введите внутренний радиус звезды : ");
     this.numberOfRaysLabel = new Label("Введите количество лучей звезд : ");
     this.startAngleRLabel = new Label("Введите угол поворота звезды : ");
-    this.xCenterOfStarLabel = new Label("Введите X координаты звезды : ");
-    this.yCenterOfStarLabel = new Label("Введите Y координаты звезды : ");
 
     this.innerStarRadius = new TextField();
     this.outerStarRadius = new TextField();
     this.numberOfRays = new TextField();
     this.startAngleR = new TextField();
-    this.xCenterOfStar = new TextField();
-    this.yCenterOfStar = new TextField();
 
     this.buttonStar = new Button("Нарисовать звезду !");
 }
@@ -79,20 +71,17 @@ public void Star (Stage primaryStage) {
 
 
     Star star = new Star();
-    buttonStar.setOnAction(e -> star.drawStar(primaryStage, innerStarRadius, outerStarRadius, numberOfRays, startAngleR,
-                                              xCenterOfStar, yCenterOfStar));
+    buttonStar.setOnAction(e -> star.drawStar(primaryStage, innerStarRadius, outerStarRadius, numberOfRays, startAngleR));
 
 
     GridPane root = new GridPane();
     root.addRow(0, innerStarRadiusLabel, innerStarRadius);
     root.addRow(1, outerStarRadiusLabel, outerStarRadius);
-    root.addRow(2, numberOfRaysLabel, numberOfRays);
-    root.addRow(3, startAngleRLabel, startAngleR);
-    root.addRow(4, xCenterOfStarLabel, xCenterOfStar);
-    root.addRow(5, yCenterOfStarLabel, yCenterOfStar);
-    root.addRow(6 , new Label());
-    root.addRow(7, buttonStar);
-    root.addRow(8, text);
+    root.addRow(2, startAngleRLabel, startAngleR);
+    root.addRow(3, numberOfRaysLabel, numberOfRays);
+    root.addRow(4 , new Label());
+    root.addRow(5, buttonStar);
+    root.addRow(6, text);
 
     primaryStage.setScene(new Scene(root, 800, 500));
     primaryStage.setTitle(" Star ");

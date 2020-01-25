@@ -21,8 +21,6 @@ double innerRadius;
 double outerRadius;
 int numRays;
 double startAngleR;
-double centerX;
-double centerY;
 
 Star () {
     this.randomColor = new Button("Случайный цвет");
@@ -30,8 +28,8 @@ Star () {
     this.returnToMenu = new Button("Вернуться в меню");
 }
 
-    public void drawStar (Stage primaryStage, TextField innerRadius, TextField outerRadius, TextField numRays, TextField startAngleR,
-                          TextField centerX, TextField centerY) {
+    public void drawStar (Stage primaryStage, TextField innerRadius, TextField outerRadius,
+                          TextField numRays, TextField startAngleR) {
 
         System.out.println("\nStar !");
 
@@ -41,9 +39,6 @@ Star () {
         this.outerRadius = (double) integerConvertor.convertTextToInteger(primaryStage, outerRadius);
         this.numRays = integerConvertor.convertTextToInteger(primaryStage, numRays);
         this.startAngleR = (double) integerConvertor.convertTextToInteger(primaryStage, startAngleR);
-        this.centerX = (double) integerConvertor.convertTextToInteger(primaryStage, centerX);
-        this.centerY = (double) integerConvertor.convertTextToInteger(primaryStage, centerY);
-
 
         //  Проверка на то, заполнены ли поля для ввода.
         //  Значения обязательно должны быть целыми числами
@@ -52,11 +47,11 @@ Star () {
             return;
         }
 
-        //  Значениям координат X и Y, а также углу поворота звезды можно быть равными нулю
+        //  Значение угла поворота звезды может быть равным нулю
 
         checkingForReasonableValues();     //  Проверка введенных значений на диапазон
 
-        System.out.println("Радиус звезды  => " + innerRadius);
+        System.out.println("Внутренний радиус звезды  => " + innerRadius);
 
 
         BorderPane group = new BorderPane();
@@ -121,8 +116,10 @@ Star () {
         this.startAngleR = 120;    //  Угол поворота звезды
 
  */
+        double centerX = 300;
+        double centerY = 250;
 
-        path = (Path) drawPathForStar(this.centerX, this.centerY, this.innerRadius, this.outerRadius, this.numRays, this.startAngleR);
+        path = (Path) drawPathForStar(centerX, centerY, this.innerRadius, this.outerRadius, this.numRays, this.startAngleR);
 
 
         path.setStroke(Color.RED);
@@ -151,7 +148,7 @@ Star () {
         double deltaAngleR = Math.PI / numRays;
         Path path = new Path();
 
-        for (int i = 0; i < numRays * 2 + 1; i++)    //  на 1 итерацию больше, чтобы при выходе из цикла не передавать close в path
+        for (int i = 0; i < numRays * 2 + 1; i++)    //  на 1 итерацию больше, тогда при выходе из цикла можно не передавать close в path
         {
             double angleR = startAngleR + i * deltaAngleR;
             double ca = Math.cos(angleR);
