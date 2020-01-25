@@ -90,6 +90,7 @@ public void Star (Stage primaryStage) {
     root.addRow(3, startAngleRLabel, startAngleR);
     root.addRow(4, xCenterOfStarLabel, xCenterOfStar);
     root.addRow(5, yCenterOfStarLabel, yCenterOfStar);
+    root.addRow(6 , new Label());
     root.addRow(7, buttonStar);
     root.addRow(8, text);
 
