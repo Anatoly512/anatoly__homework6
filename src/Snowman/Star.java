@@ -133,16 +133,15 @@ Star () {
                                   double innerRadius, double outerRadius, int numRays,
                                   double startAngleR)
     {
-        double deltaAngleR = Math.PI / numRays;
         Path path = new Path();
+        double deltaAngleR = Math.PI / numRays;
 
-        for (int i = 0; i < numRays * 2 + 1; i++)    //  на 1 итерацию больше, тогда при выходе из цикла можно не передавать close в path
+        for (int i = 0; i < numRays * 2; i++)
         {
             double angleR = startAngleR + i * deltaAngleR;
-            double ca = Math.cos(angleR);
-            double sa = Math.sin(angleR);
-            double relX = ca;
-            double relY = sa;
+
+            double relX = Math.cos(angleR);
+            double relY = Math.sin(angleR);
             if ((i & 1) == 0)
             {
                 relX *= outerRadius;
@@ -166,6 +165,8 @@ Star () {
 
             }
         }
+
+        path.getElements().add(new ClosePath());
 
         return path;
     }
